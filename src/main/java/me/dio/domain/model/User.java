@@ -23,11 +23,19 @@ public class User {
     private Card card;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id") // Mapeia a chave estrangeira
+    @JoinTable(
+            name = "tb_user_features", // Nome da tabela de junção
+            joinColumns = @JoinColumn(name = "user_id"), // Chave estrangeira na tabela de junção apontando para User
+            inverseJoinColumns = @JoinColumn(name = "feature_id") // Chave estrangeira na tabela de junção apontando para Feature
+    )
     private List<Feature> features;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id") // Mapeia a chave estrangeira
+    @JoinTable(
+            name = "tb_user_news", // Nome da tabela de junção
+            joinColumns = @JoinColumn(name = "user_id"), // Chave estrangeira na tabela de junção apontando para User
+            inverseJoinColumns = @JoinColumn(name = "news_id") // Chave estrangeira na tabela de junção apontando para News
+    )
     private List<News> news;
-
 }
+
